@@ -1,0 +1,66 @@
+✅ STUDENT MANAGEMENT SYSTEM – PLANNING DOCUMENT 
+
+The Student Management System (SMS) aims to streamline and automate the end-to-end management of students, trainers, HR processes, and placements in an academic or training environment. The primary objective is to create a centralized and role-based system where students can track their academic progress and eligibility for placement, trainers can manage student performance, HR can handle interview processes, and the admin can oversee the entire ecosystem with full control.
+
+Key Goals:
+✅ Enable secure and role-specific login access for Students, Trainers, HR, and Admin.
+
+✅ Allow students to view real-time academic and placement readiness progress.
+
+✅ Ensure trainers can efficiently manage attendance, assignment completion, and student progress.
+
+✅ Facilitate HR to manage mock interviews, mark technical and HR rounds, and identify placement-eligible students.
+
+✅ Provide admin with full control over user management, course structure, batch creation, and system configuration.
+
+✅ Automate progress calculation using a weighted model to determine placement eligibility.
+
+✅ Implement QR-based attendance tracking for ease and accuracy.
+
+--------------------------------------------------------------------------------------------------
+1. 👨‍🎓 Student
+✅ Student Features & Functionalities Overview
+
+🔐 Login	            Student can securely log in to the system
+🧾 Create Profile	    Add basic and academic details (photo, resume, skills, etc.)
+📈 View Progress	    See live progress bar based on attendance, assignments, rounds
+📄 View Information	    View detailed status of each component (attendance, assignments, rounds)
+🎯 Apply for Placement	Can apply only if progress ≥ 95%
+--------------------------------------------------------------------------------------------------
+2. 👨‍🏫 TRAINER
+✅ TRAINER Features & Functionalities Overview
+
+🔐 Trainer Login	        Secure panel for trainer access
+📦 Batch Management	        View/manage assigned batches and students
+📋 Attendance Management	Mark attendance via QR code scanner (based on student ID)
+📝 Assignment Completion	Track and update assignments per student
+📊 View Student Progress	View calculated progress for each student
+--------------------------------------------------------------------------------------------------
+3. 🧑‍💼 HR
+✅ HR Features & Functionalities
+
+🔐 Login	                    Secure login to HR dashboard
+👥 View Eligible Students	    View students with progress ≥ 95%
+✅ Mark HR & Tech Rounds	Mark student’s HR and Technical rounds as Pass/Fail
+➕ Add New Batches	           Create and assign batches to trainers
+👨‍🏫 Manage Trainers	           Add, view, and assign trainers to batches
+🧑‍🎓 Manage Student HR Mocks	Add HR mock interviews per student (notes, scores)
+🔍 Search Students	            Search by name, email, batch, status etc.
+
+--------------------------------------------------------------------------------------------------
+4. 🛠 Admin
+✅ HR Features & Functionalities
+
+🔐 Login	Secure admin login panel
+👥 Manage Users	Full CRUD on Students, Trainers, HR
+👁 View All Data	Attendance, Progress, Placement status, Interview results
+🧱 Manage Structure	Courses, Batches, Subjects, Assignment Templates
+🔧 System Control	Full access to everything (users, data, settings)
+
+--------------------------------------------------------------------------------------------------
+📊 Student Progress Calculation Logic
+Attendance	30%
+Assignment Completion	40%
+HR Round	15%
+Technical Round	15%
+--------------------------------------------------------------------------------------------------
