@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 // Mock data
 const studentsData = [
@@ -40,7 +41,7 @@ const studentsData = [
   },
 ]
 
-export const Students = () => {
+export default function Students() {
   const [students, setStudents] = useState(studentsData)
   const [search, setSearch] = useState('')
 
@@ -86,17 +87,21 @@ export const Students = () => {
           <tbody>
             {filtered.map((student) => (
               <tr key={student.id} className="border-t">
-                <td className="py-2 px-4">{student.name}</td>
+                <td className="py-2 px-4"> <Link
+                  to={`/hr/student/${student.id}`}
+                  className="text-blue-600 underline hover:text-blue-800"
+                >
+                  {student.name}
+                </Link></td>
                 <td className="py-2 px-4">{student.email}</td>
                 <td className="py-2 px-4">{student.batch}</td>
                 <td className="py-2 px-4 w-48">
                   <div className="bg-gray-200 h-3 rounded-full">
                     <div
-                      className={`h-3 rounded-full ${
-                        student.progress >= 95
+                      className={`h-3 rounded-full ${student.progress >= 95
                           ? 'bg-green-500'
                           : 'bg-blue-400'
-                      }`}
+                        }`}
                       style={{ width: `${student.progress}%` }}
                     ></div>
                   </div>
@@ -105,21 +110,19 @@ export const Students = () => {
                 <td className="py-2 px-4">
                   <div className="flex gap-1">
                     <button
-                      className={`px-2 py-1 text-sm rounded ${
-                        student.hrStatus === 'Pass'
+                      className={`px-2 py-1 text-sm rounded ${student.hrStatus === 'Pass'
                           ? 'bg-green-500 text-white'
                           : 'bg-gray-200'
-                      }`}
+                        }`}
                       onClick={() => updateStatus(student.id, 'hrStatus', 'Pass')}
                     >
                       Pass
                     </button>
                     <button
-                      className={`px-2 py-1 text-sm rounded ${
-                        student.hrStatus === 'Fail'
+                      className={`px-2 py-1 text-sm rounded ${student.hrStatus === 'Fail'
                           ? 'bg-red-500 text-white'
                           : 'bg-gray-200'
-                      }`}
+                        }`}
                       onClick={() => updateStatus(student.id, 'hrStatus', 'Fail')}
                     >
                       Fail
@@ -129,21 +132,19 @@ export const Students = () => {
                 <td className="py-2 px-4">
                   <div className="flex gap-1">
                     <button
-                      className={`px-2 py-1 text-sm rounded ${
-                        student.techStatus === 'Pass'
+                      className={`px-2 py-1 text-sm rounded ${student.techStatus === 'Pass'
                           ? 'bg-green-500 text-white'
                           : 'bg-gray-200'
-                      }`}
+                        }`}
                       onClick={() => updateStatus(student.id, 'techStatus', 'Pass')}
                     >
                       Pass
                     </button>
                     <button
-                      className={`px-2 py-1 text-sm rounded ${
-                        student.techStatus === 'Fail'
+                      className={`px-2 py-1 text-sm rounded ${student.techStatus === 'Fail'
                           ? 'bg-red-500 text-white'
                           : 'bg-gray-200'
-                      }`}
+                        }`}
                       onClick={() => updateStatus(student.id, 'techStatus', 'Fail')}
                     >
                       Fail

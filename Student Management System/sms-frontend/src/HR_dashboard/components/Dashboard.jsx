@@ -51,6 +51,14 @@ const trainersData = [
           { id: 6, name: 'Frank Yang', email: 'frank@example.com', progress: 92, hrRound: null, techRound: null },
         ],
       },
+      {
+        id: 'b4',
+        name: 'B        atch Alpha',
+        students: [
+          { id: 5, name: 'Eve Martin', email: 'eve@example.com', progress: 99, hrRound: 'pass', techRound: 'pass' },
+          { id: 6, name: 'Frank Yang', email: 'frank@example.com', progress: 92, hrRound: null, techRound: null },
+        ],
+      },
     ],
   },
 ]
@@ -82,7 +90,7 @@ function getRoundStats(students, round) {
   ]
 }
 
-export const Dashboard=()=> {
+export default function Dashboard() {
   const [selectedTrainerId, setSelectedTrainerId] = useState(null)
   const [selectedBatchId, setSelectedBatchId] = useState(null)
 

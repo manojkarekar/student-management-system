@@ -6,7 +6,7 @@ const initialBatches = [
   { id: 3, name: 'Batch C', startDate: '2024-02-20' },
 ]
 
-export const Batches=()=> {
+export default function Batches() {
   const [batches, setBatches] = useState(initialBatches)
   const [form, setForm] = useState({ name: '', startDate: '' })
   const [editId, setEditId] = useState(null)
