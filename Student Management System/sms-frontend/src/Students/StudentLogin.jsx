@@ -1,17 +1,19 @@
   // src/components/StudentLogin.js
-  import React, { useState } from 'react';
+  import React, { useContext, useState } from 'react';
   import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from './AuthProvider';
 
 
   const StudentLogin = () => {
     const [form, setForm] = useState({ username: '', password: '' });
     const [message, setMessage] = useState('');
-    const [token, setToken] = useState('');
-
+  
     // used to navigate to redirected in student dashboard page
     const navigate = useNavigate();
 
+    // use context here...
+    const {login} = useContext(AuthContext);
 
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -19,11 +21,13 @@ import { useNavigate } from 'react-router-dom';
       e.preventDefault();
       try {
         const res = await axios.post('http://localhost:8000/api/student/login/', form);
-        setToken(res.data.token);
+        // setToken(res.data.token);
+        login(res.data.token);
+
         setMessage('Login successful');
 
 
-        localStorage.setItem('student_token', res.data.token);
+        // localStorage.setItem('student_token', res.data.token);
 
         // redirected dashboard page after success login
          navigate('/student/home');
@@ -41,7 +45,7 @@ import { useNavigate } from 'react-router-dom';
           <button type="submit" style={{color:"yellow"}}>Login</button>
         </form>
         <p>{message}</p>
-        {token && <p>Token: {token}</p>}
+       
       </div>
     );
   };

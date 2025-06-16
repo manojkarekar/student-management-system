@@ -17,6 +17,7 @@
   import StudentLogin from "./Students/StudentLogin";
   import StudentRegister from "./Students/StudentRegister";
 import { StudentHome } from "./Students/StudentHome";
+import { PrivateRoute } from "./Students/PrivateRoute";
 
 
 
@@ -24,10 +25,16 @@ import { StudentHome } from "./Students/StudentHome";
     return (
       <Routes>
         {/* Redirect base route '/' to '/student/dashboard' */}
-        <Route path="/" element={<Navigate to="/student/dashboard" replace />} />
+        <Route path="/" element={<Navigate to="/student/home" replace />} />
 
         {/* Student Routes */}
-        <Route path="/student/dashboard" element={<StudentDashboard />} />
+        <Route path="/student/dashboard" element={
+          
+          <PrivateRoute>
+            <StudentDashboard />
+          </PrivateRoute>
+          
+          } />
         <Route path="/student/login" element={<StudentLogin />} />
         <Route path="/student/register" element={<StudentRegister />} />
         <Route path="/student/home" element={<StudentHome />} />

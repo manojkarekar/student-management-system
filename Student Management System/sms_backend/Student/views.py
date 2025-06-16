@@ -17,6 +17,8 @@ from rest_framework.permissions import IsAuthenticated
 from .permissions import IsStudent
 
 
+from .utils import send_otp_in_email , generate_otp 
+
 class StudentDashboardView(APIView):
     permission_classes = [IsAuthenticated, IsStudent]
 
@@ -41,14 +43,45 @@ class StudentRegisterView(APIView):
         serializer = StudentRegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
+
+            # generate otp and send it 
+            if user.is_student:
+                otp = generate_otp()
+                user.otp = otp
+                user.save()
+                send_otp_in_email(user.email,otp)
+            
             token, created = Token.objects.get_or_create(user=user)
             return Response({
-                'message': 'Student registered successfully',
-                'token': token.key
+                'message': 'Student registered successfully Please verify your email',
+                'token': token.key,
+                'user_id': user.id ,
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# opt verification 
+class VerifyEmailView(APIView):
+    def post(self,request):
+        user_id = request.data.get('user_id')
+        otp = request.data.get('otp')
+
+        try:
+            user = CustomUser.objects.get(id=user_id)
+
+            if not user.is_student:
+                return Response({"error": "OTP verification only for students"}, status=400)
+            
+            if user.otp == otp:
+                user.is_email_verified = True
+                user.otp = None
+                user.save()
+                return Response({"message": "Email verified successfully"}, status=200)
+            else:
+                return Response({"error": "Invalid OTP"}, status=400)
+        except CustomUser.DoesNotExist:
+            return Response({"error": "User not found"}, status=404)
+        
 
 class StudentLoginView(APIView):
     permission_classes = [AllowAny] 
@@ -59,13 +92,17 @@ class StudentLoginView(APIView):
 
         user = authenticate(username=username, password=password)
 
-        if user is not None and user.is_student:
+        if user  and user.is_student:
+            if not user.is_email_verified:
+                return Response({'error': 'Email is not verified'}, status=403)
+
             token, created = Token.objects.get_or_create(user=user)
             return Response({
                 'message': 'Login successful',
                 'token': token.key
             }, status=status.HTTP_200_OK)
         return Response({'error': 'Invalid credentials or not a student'}, status=status.HTTP_401_UNAUTHORIZED)
+
 
 
 
